@@ -17,7 +17,7 @@ const plugins = [
     {
       antd: true,
       dva: {
-        hmr: true
+        hmr: true,
       },
       locale: {
         // default false
@@ -25,22 +25,22 @@ const plugins = [
         // default zh-CN
         default: 'zh-CN',
         // default true, when it is true, will use `navigator.language` overwrite default
-        baseNavigator: true
+        baseNavigator: true,
       },
       dynamicImport: {
         loadingComponent: './components/PageLoading/index',
         webpackChunkName: true,
-        level: 3
+        level: 3,
       },
       pwa: pwa
         ? {
             workboxPluginMode: 'InjectManifest',
             workboxOptions: {
-              importWorkboxFrom: 'local'
-            }
+              importWorkboxFrom: 'local',
+            },
           }
-        : false // default close dll, because issue https://github.com/ant-design/ant-design-pro/issues/4665
-    }
+        : false, // default close dll, because issue https://github.com/ant-design/ant-design-pro/issues/4665
+    },
   ],
   [
     'umi-plugin-pro-block',
@@ -48,18 +48,18 @@ const plugins = [
       moveMock: false,
       moveService: false,
       modifyRequest: true,
-      autoAddMenu: true
-    }
-  ]
+      autoAddMenu: true,
+    },
+  ],
 ];
 export default {
   plugins,
   block: {
-    defaultGitUrl: 'https://github.com/ant-design/pro-blocks'
+    defaultGitUrl: 'https://github.com/ant-design/pro-blocks',
   },
   hash: true,
   targets: {
-    ie: 11
+    ie: 11,
   },
   devtool: isProd ? false : 'source-map',
   // umi routes: https://umijs.org/zh/guide/router.html
@@ -74,62 +74,64 @@ export default {
           path: '/',
           name: '我的课程',
           icon: 'smile',
-          component: './Welcome'
+          component: './Welcome',
         },
         {
           name: '登录',
           path: '/user/login',
-          component: './user/login'
+          component: './user/login',
         },
         {
           name: 'setting',
           path: '/user/setting',
           component: './user/setting',
-          hideInMenu: true
+          hideInMenu: true,
         },
         {
           name: '我的考勤',
           path: '/attendance',
-          component: './attendance'
+          component: './attendance',
         },
         {
           path: '/courseMoney',
           name: '我的课酬',
-          component: './courseMoney'
+          component: './courseMoney',
         },
         {
-          component: './404'
-        }
-      ]
+          component: './404',
+        },
+      ],
     },
     {
-      component: './404'
-    }
+      component: './404',
+    },
   ],
   // Theme for antd: https://ant.design/docs/react/customize-theme-cn
   theme,
   // 配置别名
   alias: {
     '@': path.resolve(__dirname, 'src/'),
+    '@assets': path.resolve(__dirname, '../src/assets'),
+    '@utils': path.resolve(__dirname, '../src/utils'),
     '@components': path.resolve(__dirname, '../src/components'),
-    '@dump': path.resolve(__dirname, '../src/components/dump/index.js')
+    '@dump': path.resolve(__dirname, '../src/components/dump/index.js'),
   },
   // 定义全局可用的一个变量
   define: {
-    NODE_ENV: NODE_ENV || 'development'
+    NODE_ENV: NODE_ENV || 'development',
   },
   ignoreMomentLocale: true,
   lessLoaderOptions: {
-    javascriptEnabled: true
+    javascriptEnabled: true,
   },
   disableRedirectHoist: true,
   cssLoaderOptions: {
     modules: true,
     getLocalIdent: (context, _, localName) => {
       if (
-        context.resourcePath.includes('node_modules')
-        || context.resourcePath.includes('ant.design.pro.less')
-        || context.resourcePath.includes('global.less')
+        context.resourcePath.includes('node_modules') ||
+        context.resourcePath.includes('ant.design.pro.less') ||
+        context.resourcePath.includes('global.less')
       ) {
         return localName;
       }
@@ -146,12 +148,12 @@ export default {
       }
 
       return localName;
-    }
+    },
   },
   manifest: {
-    basePath: '/'
+    basePath: '/',
   },
-  chainWebpack: webpackPlugin
+  chainWebpack: webpackPlugin,
   /*
   proxy: {
     '/server/api/': {

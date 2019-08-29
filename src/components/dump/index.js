@@ -8,5 +8,6 @@
 import AxxButton from './AxxButton/index';
 import AxxInput from './AxxInput/index';
 import AxxMonthPicker from './AxxMonthPicker';
+import AxxCalendar from './AxxCalendar';
 
-export { AxxButton, AxxInput, AxxMonthPicker };
+export { AxxButton, AxxInput, AxxMonthPicker, AxxCalendar };

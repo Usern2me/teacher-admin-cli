@@ -3,4 +3,16 @@ const reg = /(((^https?:(?:\/\/)?)(?:[-;:&=\+\$,\w]+@)?[A-Za-z0-9.-]+(?::\d+)?|(
 
 const isUrl = path => reg.test(path);
 
-export { isUrl };
+const Storage = {
+  set(key, value) {
+    window.localStorage.setItem(key, JSON.stringify(value));
+  },
+  get(key) {
+    return JSON.parse(window.localStorage.getItem(key));
+  },
+  remove(key) {
+    localStorage.removeItem(key);
+  },
+};
+
+export { isUrl, Storage };

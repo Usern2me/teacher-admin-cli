@@ -1,12 +1,27 @@
-import city from './geographic/city.json';
-import province from './geographic/province.json';
-
 function getProvince(_, res) {
-  return res.json(province);
+  return res.json({
+    province: {
+      label: '浙江省',
+      key: '330000',
+    },
+    city: {
+      label: '杭州市',
+      key: '330100',
+    },
+  });
 }
 
 function getCity(req, res) {
-  return res.json(city[req.params.province]);
+  return res.json({
+    province: {
+      label: '浙江省',
+      key: '330000',
+    },
+    city: {
+      label: '杭州市',
+      key: '330100',
+    },
+  });
 } // 代码中会兼容本地 service mock 以及部署站点的静态数据
 
 export default {

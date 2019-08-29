@@ -1,11 +1,9 @@
 import request from '@/utils/request';
 
-export async function fakeAccountLogin(params) {
-  return request('/api/login/account', {
-    method: 'POST',
+// eslint-disable-next-line import/prefer-default-export
+export async function userLogin(params) {
+  return request('/auth/login/pwd', {
+    method: 'post',
     data: params,
   });
-}
-export async function getFakeCaptcha(mobile) {
-  return request(`/api/login/captcha?mobile=${mobile}`);
 }

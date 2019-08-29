@@ -1,80 +1,94 @@
 import React, { Component } from 'react';
 import { connect } from 'dva';
-import { Form } from 'antd';
+import { Form, Row, Col } from 'antd';
 import { AxxButton, AxxInput } from '@dump';
 
 import styles from './style.less';
 
 @connect(({ userLogin, loading }) => ({
   userLogin,
-  submitting: loading.effects['userLogin/login']
+  submitting: loading.effects['userLogin/login'],
 }))
 class Login extends Component {
-  state = {
-    type: 'account'
-  };
-
-  handleSubmit = (err, values) => {
-    const { type } = this.state;
-    const { form } = this.props;
+  handleSubmit = () => {
+    const { form, dispatch } = this.props;
     form.validateFieldsAndScroll((errs, formValue) => {
       if (!errs) {
-        console.log('Received formValue of form: ', formValue);
-      } else {
-        console.log('有错误--->', errs);
+        dispatch({
+          type: 'userLogin/login',
+          payload: formValue,
+        });
       }
     });
-    if (!err) {
-      const { dispatch } = this.props;
-      dispatch({
-        type: 'userLogin/login',
-        payload: { ...values, type }
-      });
-    }
   };
 
-  handleAxxInputChange = e => {
-    console.log('eee', e);
+  handleChangeCaptcha = () => {
+    const { dispatch } = this.props;
+    const result = dispatch({
+      type: 'userLogin/getCaptcha',
+    });
+    console.log('result', result);
   };
 
   render() {
     const {
-      form: { getFieldDecorator }
+      form: { getFieldDecorator },
+      userLogin: { wrongTime, img },
     } = this.props;
 
     return (
       <div className={styles.loginContainer}>
-        <Form.Item>
-          {getFieldDecorator('name', {
-            rules: [{ required: true, message: '请输入用户名' }]
-          })(<AxxInput type="text" label="用户名"></AxxInput>)}
-        </Form.Item>
-        <Form.Item>
-          {getFieldDecorator('password', {
-            rules: [
-              {
-                required: true,
-                message: '请输入密码'
-              }
-            ]
-          })(
-            <AxxInput
-              onChange={this.handleAxxInputChange}
-              type="password"
-              showpasswordeye="true"
-              label="密码"
-            ></AxxInput>,
-          )}
-        </Form.Item>
-        <AxxButton
-          className={styles.loginBtn}
-          onClick={this.handleSubmit}
-          size="large"
-          block
-          type="primary"
-        >
-          登录
-        </AxxButton>
+        <Row>
+          <Col span={10} offset={2}>
+            <img src={require('@assets/login_bg.png')} alt="登录背景占位图" />
+          </Col>
+          <Col span={8} offset={2}>
+            <Form.Item>
+              {getFieldDecorator('username', {
+                rules: [{ required: true, message: '请输入用户名' }],
+              })(<AxxInput autoComplete="off" type="text" label="用户名"></AxxInput>)}
+            </Form.Item>
+            <Form.Item>
+              {getFieldDecorator('password', {
+                rules: [
+                  {
+                    required: true,
+                    message: '请输入密码',
+                  },
+                ],
+              })(
+                <AxxInput
+                  onChange={this.handleAxxInputChange}
+                  type="password"
+                  showpasswordeye="true"
+                  label="密码"
+                ></AxxInput>,
+              )}
+            </Form.Item>
+            {wrongTime > 0 && (
+              <Form.Item onClick={this.handleChangeCaptcha}>
+                {getFieldDecorator('captcha', {
+                  rules: [
+                    {
+                      required: true,
+                      message: '请输入验证码',
+                    },
+                  ],
+                })(<AxxInput autoComplete="off" label="验证码"></AxxInput>)}
+                {wrongTime > 0 && <img className={styles.captcheImg} src={img} alt="code" />}
+              </Form.Item>
+            )}
+            <AxxButton
+              className={styles.loginBtn}
+              onClick={this.handleSubmit}
+              size="large"
+              block
+              type="primary"
+            >
+              登录
+            </AxxButton>
+          </Col>
+        </Row>
       </div>
     );
   }

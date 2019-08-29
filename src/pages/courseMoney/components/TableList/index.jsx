@@ -17,12 +17,13 @@ class TableList extends Component {
     const paginationProps = pagination
       ? {
           showQuickJumper: true,
-          ...pagination
+          ...pagination,
         }
       : false;
     return (
       <div className={styles.TableListContainer}>
         <Table
+          rowKey="courseId"
           dataSource={list}
           pagination={paginationProps}
           onChange={this.handleTableChange}

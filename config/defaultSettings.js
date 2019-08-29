@@ -7,9 +7,9 @@ export default {
   fixSiderbar: false,
   colorWeak: false,
   menu: {
-    locale: false
+    locale: false,
   },
   title: '新版教师端',
   pwa: false,
-  iconfontUrl: '//at.alicdn.com/t/font_837900_jhbrbrcyzhl.js'
+  iconfontUrl: '//at.alicdn.com/t/font_1377221_44djcabnnl.js',
 };

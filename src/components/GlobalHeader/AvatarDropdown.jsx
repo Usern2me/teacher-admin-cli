@@ -1,6 +1,4 @@
-import {
- Avatar, Icon, Menu, Spin
-} from 'antd';
+import { Avatar, Icon, Menu, Spin } from 'antd';
 import React from 'react';
 import { connect } from 'dva';
 import router from 'umi/router';
@@ -13,16 +11,13 @@ class AvatarDropdown extends React.Component {
 
     if (key === 'logout') {
       const { dispatch } = this.props;
-
       if (dispatch) {
         dispatch({
-          type: 'login/logout'
+          type: 'login/logout',
         });
       }
-
       return;
     }
-
     router.push(`/user/${key}`);
   };
 
@@ -51,6 +46,7 @@ class AvatarDropdown extends React.Component {
         </Menu.Item>
       </Menu>
     );
+    // TODO: 未登录用一张灰色的头像
     return currentUser && currentUser.name ? (
       <HeaderDropdown overlay={menuHeaderDropdown}>
         <span className={`${styles.action} ${styles.account}`}>
@@ -63,7 +59,7 @@ class AvatarDropdown extends React.Component {
         size="small"
         style={{
           marginLeft: 8,
-          marginRight: 8
+          marginRight: 8,
         }}
       />
     );
@@ -71,5 +67,5 @@ class AvatarDropdown extends React.Component {
 }
 
 export default connect(({ user }) => ({
-  currentUser: user.currentUser
+  currentUser: user.currentUser,
 }))(AvatarDropdown);

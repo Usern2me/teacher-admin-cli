@@ -2,33 +2,47 @@
  * AXXInput:
  *  属性：
  *  labelValue:xxx,
- *  type:['text','password','textarea']
+ *  type:['text','textarea','password','search]
  */
-import React, { useState, useRef, useEffect } from 'react';
+import React, { forwardRef } from 'react';
 import { Input } from 'antd';
-import IconFont from '@components/IconFont';
-
 import styles from './index.less';
 
-// TODO:
-// 1. 重点解决封装了一层监听不到onChange事件的问题
-// 2. 封装密码input组件
+const { Password, Search } = Input;
 
-const AxxInput = props => {
-  const { children, label } = props;
-  const [text, setText] = useState('aaa');
-  const inputRef = useRef('aaa');
-  useEffect(() => {
-    console.log('aaa', inputRef.current.state);
-  }, [inputRef]);
+const AxxInput = (props, ref) => {
+  const { children, label, showeye, search } = props;
+
+  const handleDivChange = e => {
+    if (showeye || search) {
+      const labelClassList = e.target.parentElement.nextSibling.classList;
+      if (e.target.value !== '') {
+        labelClassList.add('label-transition');
+      } else {
+        labelClassList.remove('label-transition');
+      }
+    }
+  };
+
   return (
-    <div className={styles['override-ant-btn']}>
-      <Input value={text} ref={inputRef} required {...props}>
-        {children}
-      </Input>
+    <div onChange={handleDivChange} ref={ref} className={styles['override-ant-btn']}>
+      {showeye ? (
+        <Password required {...props}>
+          {children}
+        </Password>
+      ) : search ? (
+        <Search required {...props}>
+          {children}
+        </Search>
+      ) : (
+        <Input required {...props}>
+          {children}
+        </Input>
+      )}
       {label ? <span className={styles['ant-btn-label']}>{label}</span> : null}
     </div>
   );
 };
 
-export default AxxInput;
+// tips:没有这个封装会报错
+export default forwardRef(AxxInput);

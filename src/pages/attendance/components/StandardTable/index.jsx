@@ -2,47 +2,7 @@ import { Table } from 'antd';
 import React, { Component } from 'react';
 import styles from './index.less';
 
-function initTotalList(columns) {
-  if (!columns) {
-    return [];
-  }
-
-  const totalList = [];
-  columns.forEach(column => {
-    if (column.needTotal) {
-      totalList.push({
-        ...column,
-        total: 0
-      });
-    }
-  });
-  return totalList;
-}
-
 class StandardTable extends Component {
-  static getDerivedStateFromProps(nextProps) {
-    // clean state
-    if (nextProps.selectedRows.length === 0) {
-      const needTotalList = initTotalList(nextProps.columns);
-      return {
-        selectedRowKeys: [],
-        needTotalList
-      };
-    }
-
-    return null;
-  }
-
-  constructor(props) {
-    super(props);
-    const { columns } = props;
-    const needTotalList = initTotalList(columns);
-    this.state = {
-      selectedRowKeys: [],
-      needTotalList
-    };
-  }
-
   handleTableChange = (pagination, filters, sorter, ...rest) => {
     const { onChange } = this.props;
 
@@ -51,19 +11,19 @@ class StandardTable extends Component {
     }
   };
 
-
   render() {
     const { data, rowKey, ...rest } = this.props;
     const { list = [], pagination = false } = data || {};
     const paginationProps = pagination
       ? {
           showQuickJumper: true,
-          ...pagination
+          ...pagination,
         }
       : false;
     return (
       <div className={styles.standardTable}>
         <Table
+          rowKey="knowledgeId"
           dataSource={list}
           pagination={paginationProps}
           onChange={this.handleTableChange}

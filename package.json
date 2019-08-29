@@ -4,8 +4,8 @@
   "private": true,
   "description": "新版91教师端",
   "scripts": {
-    "dev": "umi dev",
-    "dev:no-mock": "cross-env MOCK=none umi dev",
+    "dev": "cross-env MOCK=none umi dev",
+    "dev:mock": "umi dev",
     "build": "umi build",
     "build:test": "cross-env NODE_ENV=development umi build",
     "build:prod": "cross-env NODE_ENV=production umi build",

@@ -13,7 +13,7 @@ import {
   Menu,
   Row,
   Select,
-  message
+  message,
 } from 'antd';
 import React, { Component } from 'react';
 import { PageHeaderWrapper } from '@ant-design/pro-layout';
@@ -26,48 +26,40 @@ import styles from './style.less';
 /* eslint react/no-multi-comp:0 */
 @connect(({ courseMoney, loading }) => ({
   courseMoney,
-  loading: loading.models.rule
+  loading: loading.models.rule,
 }))
 class CourseMoney extends Component {
   state = {
-    formValues: {}
+    formValues: {},
   };
 
   columns = [
     {
-      title: '课程ID',
-      dataIndex: 'id'
-    },
-    {
-      title: '课程名称',
-      dataIndex: 'name'
+      title: 'ID',
+      dataIndex: 'courseId',
     },
     {
       title: '学期',
-      align: 'right',
-      dataIndex: 'semester'
+      dataIndex: 'term',
     },
     {
-      title: '学年',
-      align: 'right',
-      dataIndex: 'year'
+      title: '课程名称',
+      dataIndex: 'courseName',
     },
     {
       title: '班级人数',
-      align: 'right',
-      dataIndex: 'classNum'
+      dataIndex: 'courseCount',
     },
     {
-      title: '本月收入',
-      align: 'right',
-      dataIndex: 'income'
-    }
+      title: '课程收入',
+      dataIndex: 'price',
+    },
   ];
 
   componentDidMount() {
     const { dispatch } = this.props;
     dispatch({
-      type: 'courseMoney/fetch'
+      type: 'courseMoney/fetch',
     });
   }
 
@@ -83,7 +75,7 @@ class CourseMoney extends Component {
       currentPage: pagination.current,
       pageSize: pagination.pageSize,
       ...formValues,
-      ...filters
+      ...filters,
     };
 
     if (sorter.field) {
@@ -91,14 +83,23 @@ class CourseMoney extends Component {
     }
   };
 
+  onMonthChange = e => {
+    console.log('month Change--->', e.format('YYYY-MM-DD'));
+    const { dispatch } = this.props;
+    // dispatch({
+    //   type: 'courseMoney/fetch',
+    //   payload: { teacherId: 12267, year: e.format('YYYY'), month: e.format('MM') }
+    // });
+  };
+
   render() {
     const {
       courseMoney: { data },
-      loading
+      loading,
     } = this.props;
     return (
       <PageHeaderWrapper>
-        <AxxMonthPicker></AxxMonthPicker>
+        <AxxMonthPicker onChange={this.onMonthChange}></AxxMonthPicker>
         <TableList
           columns={this.columns}
           data={data}
