@@ -12,7 +12,8 @@ import styles from './index.less';
 const { Password, Search } = Input;
 
 const AxxInput = (props, ref) => {
-  const { children, label, showeye, search, customClass } = props;
+  const { children, label, showeye, search } = props;
+  const { customClass, ...resProps } = props;
 
   const handleDivChange = e => {
     if (showeye || search) {
@@ -32,15 +33,15 @@ const AxxInput = (props, ref) => {
       className={`${styles['override-ant-btn']} ${customClass}`}
     >
       {showeye ? (
-        <Password autoComplete="off" required {...props}>
+        <Password autoComplete="off" required {...resProps}>
           {children}
         </Password>
       ) : search ? (
-        <Search autoComplete="off" required {...props}>
+        <Search autoComplete="off" required {...resProps}>
           {children}
         </Search>
       ) : (
-        <Input autoComplete="off" required {...props}>
+        <Input autoComplete="off" required {...resProps}>
           {children}
         </Input>
       )}

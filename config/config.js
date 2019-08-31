@@ -154,6 +154,14 @@ export default {
     basePath: '/',
   },
   chainWebpack: webpackPlugin,
+  devServer: {
+    watchOptions: {
+      // 监控文件相关配置
+      poll: true,
+      ignored: /node_modules/, // 忽略监控的文件夹, 正则
+      aggregateTimeout: 1000, // 默认值, 当你连续改动时候, webpack可以设置构建延迟时间(防抖)
+    },
+  },
   /*
   proxy: {
     '/server/api/': {

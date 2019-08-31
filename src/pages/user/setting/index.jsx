@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { AxxButton, AxxInput } from '@components/dump';
-import { Form } from 'antd';
+import { Form, Alert, message } from 'antd';
 import { connnet } from 'dva';
 import { getCaptcha } from '@/services/user';
 import { editPassword } from './service';
@@ -13,6 +13,8 @@ const Setting = props => {
   } = props;
   const [captchaImg, setCaptchaImg] = useState('');
   const [captchaKey, setCaptchaKey] = useState('');
+  const [visibleAlert, setVisibleAlert] = useState(false);
+  const [alertMessage, setAlertMessage] = useState('');
 
   const getImgData = async () => {
     const response = await getCaptcha();
@@ -26,6 +28,7 @@ const Setting = props => {
 
   const handleSubmit = () => {
     const { form } = props;
+    setVisibleAlert(false);
     form.validateFieldsAndScroll((errs, formValue) => {
       if (!errs) {
         let verifyKey = `${formValue.verifyCode}&${captchaKey}`;
@@ -37,6 +40,12 @@ const Setting = props => {
         );
         editPassword(params).then(res => {
           console.log('handleSubmit result--->', res);
+          if (res.code !== 'SUCCESS') {
+            setVisibleAlert(true);
+            setAlertMessage(res.msg);
+          } else {
+            message.loading('正在修改..', 1.5).then(() => message.success('密码修改成功！', 1.5));
+          }
         });
       }
     });
@@ -63,6 +72,17 @@ const Setting = props => {
         {getFieldDecorator('againPwd', {
           rules: [{ required: true, message: '请再次输入密码' }],
         })(<AxxInput label="确认密码"></AxxInput>)}
+        {visibleAlert ? (
+          <Alert
+            className={styles.alert}
+            message={alertMessage}
+            type="error"
+            closable
+            afterClose={() => {
+              setVisibleAlert(false);
+            }}
+          ></Alert>
+        ) : null}
         <AxxButton className={styles.btn} onClick={handleSubmit} size="large" type="primary" block>
           修改密码
         </AxxButton>

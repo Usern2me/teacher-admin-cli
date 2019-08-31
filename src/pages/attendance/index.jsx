@@ -13,7 +13,7 @@ import {
   Menu,
   Row,
   Select,
-  message
+  message,
 } from 'antd';
 import React, { Component } from 'react';
 import { PageHeaderWrapper } from '@ant-design/pro-layout';
@@ -23,102 +23,88 @@ import StandardTable from './components/StandardTable';
 import { AxxCalendar } from '@dump';
 import styles from './style.less';
 
-const getValue = obj => Object.keys(obj)
+const getValue = obj =>
+  Object.keys(obj)
     .map(key => obj[key])
     .join(',');
 
 /* eslint react/no-multi-comp:0 */
-@connect(({ attendance, loading }) => ({
+@connect(({ attendance, user, loading }) => ({
   attendance,
-  loading: loading.models.rule
+  user,
+  loading: loading.models.rule,
 }))
 class Attendance extends Component {
   state = {
     selectedRows: [],
-    formValues: {}
+    formValues: {},
   };
 
   columns = [
     {
       title: 'ID',
-      dataIndex: 'courseId'
+      dataIndex: 'courseId',
     },
     {
       title: '课程名称',
-      dataIndex: 'courseName'
+      dataIndex: 'courseName',
     },
     {
       title: '课次名称',
-      dataIndex: 'knowledgeName'
+      dataIndex: 'knowledgeName',
     },
     {
       title: '课程时间',
-      dataIndex: 'knowledgeTime'
+      dataIndex: 'knowledgeTime',
     },
     {
       title: '签到时间',
-      dataIndex: 'attendanceTime'
+      dataIndex: 'attendanceTime',
     },
     {
       title: '补签',
-      dataIndex: 'isRepair'
-    }
+      dataIndex: 'isRepair',
+    },
   ];
 
   componentDidMount() {
-    const { dispatch } = this.props;
-    dispatch({
-      type: 'attendance/fetch',
-      payload: {
-        endTime: '2019-07-29T07:53:49.873Z',
-        startTime: '2019-08-29T07:53:49.873Z',
-        teacherId: 12267
-      }
-    });
+    let today = moment();
+    this.dispatchData(today, today);
   }
-
-  handleStandardTableChange = (pagination, filtersArg, sorter) => {
-    const { dispatch } = this.props;
-    const { formValues } = this.state;
-    const filters = Object.keys(filtersArg).reduce((obj, key) => {
-      const newObj = { ...obj };
-      newObj[key] = getValue(filtersArg[key]);
-      return newObj;
-    }, {});
+  onCalendarChange = data => {
+    this.dispatchData(data, data);
+  };
+  dispatchData = (startTime, endTime) => {
+    const {
+      dispatch,
+      user: {
+        currentUser: { userid },
+      },
+    } = this.props;
     const params = {
-      currentPage: pagination.current,
-      pageSize: pagination.pageSize,
-      ...formValues,
-      ...filters
+      startTime: startTime.format('YYYY-MM-DD'),
+      endTime: endTime.format('YYYY-MM-DD'),
+      teacherId: userid,
     };
-
-    if (sorter.field) {
-      params.sorter = `${sorter.field}_${sorter.order}`;
-    }
-
     dispatch({
       type: 'attendance/fetch',
-      payload: params
+      payload: params,
     });
   };
+  onPanelChange = (date, mode) => {};
 
   render() {
     const {
       attendance: { data },
-      loading
+      loading,
     } = this.props;
 
     return (
       <PageHeaderWrapper>
-        <AxxCalendar />
+        <AxxCalendar onChange={this.onCalendarChange} onPanelChange={this.onPanelChange} />
         <Card bordered={false}>
           <div className={styles.tableList}>
-            <StandardTable
-              loading={loading}
-              data={data}
-              columns={this.columns}
-              onChange={this.handleStandardTableChange}
-            />
+            <StandardTable loading={loading} data={data} columns={this.columns} />
           </div>
         </Card>
       </PageHeaderWrapper>

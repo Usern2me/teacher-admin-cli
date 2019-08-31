@@ -1,4 +1,4 @@
-import { routerRedux } from 'dva/router';
+import { routerRedux } from 'dva';
 import { Storage } from '@utils/utils';
 import { userLogin } from './service';
 import { getCaptcha } from '@/services/user';
@@ -8,22 +8,20 @@ const Model = {
   namespace: 'userLogin',
   state: {
     status: undefined,
-    wrongTime: 0
+    wrongTime: 0,
   },
   effects: {
-    * login({ payload }, { select, call, put }) {
+    *login({ payload }, { select, call, put }) {
       const { wrongTime, verifyKey } = select(state => state);
       if (wrongTime) {
         // 错误一次要传验证码
         Object.assign(payload, { verifyCode: verifyKey });
       }
-      console.log('verify', payload);
       const response = yield call(userLogin, payload);
-
       if (response && response.code && response.code === 'SUCCESS') {
         yield put({
           type: 'setToken',
-          payload: response.data.token
+          payload: response.data.token,
         });
         const urlParams = new URL(window.location.href);
         const params = getPageQuery();
@@ -45,19 +43,20 @@ const Model = {
         yield put(routerRedux.replace(redirect || '/'));
       } else {
         yield put({
-          type: 'saveWrongTime'
+          type: 'saveWrongTime',
         });
         yield put({
-          type: 'getCaptcha'
+          type: 'getCaptcha',
         });
       }
+      return response;
     },
-    * getCaptcha(_, { call, put }) {
+    *getCaptcha(_, { call, put }) {
       const response = yield call(getCaptcha);
       if (response && response.code && response.code === 'SUCCESS') {
         yield put({
           type: 'saveState',
-          payload: response.data
+          payload: response.data,
         });
       }
       return response;
@@ -67,7 +66,7 @@ const Model = {
     },
     removeToken(payload) {
       Storage.remove('token', payload);
-    }
+    },
   },
   reducers: {
     changeLoginStatus(state, { payload }) {
@@ -80,7 +79,7 @@ const Model = {
     },
     saveState(state, { payload }) {
       return { ...state, ...payload };
-    }
-  }
+    },
+  },
 };
 export default Model;

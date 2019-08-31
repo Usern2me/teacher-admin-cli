@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'dva';
-import { Form, Row, Col } from 'antd';
+import { Form, Row, Col, message, Alert } from 'antd';
 import { AxxButton, AxxInput } from '@dump';
 import { getCaptcha } from '@/services/user';
 
@@ -11,6 +11,11 @@ import styles from './style.less';
   submitting: loading.effects['userLogin/login'],
 }))
 class Login extends Component {
+  state = {
+    alertMessage: '',
+    alertVisible: false,
+  };
+
   handleSubmit = () => {
     const { form, dispatch } = this.props;
     form.validateFieldsAndScroll((errs, formValue) => {
@@ -18,6 +23,12 @@ class Login extends Component {
         dispatch({
           type: 'userLogin/login',
           payload: formValue,
+        }).then(res => {
+          if (res.code !== 'SUCCESS') {
+            this.setState({ alertVisible: true, alertMessage: res.msg });
+          } else {
+            message.success('登录成功，正在跳转');
+          }
         });
       }
     });
@@ -26,7 +37,6 @@ class Login extends Component {
   handleChangeCaptcha = async () => {
     const { dispatch } = this.props;
     const result = await getCaptcha();
-    console.log('result', result);
   };
 
   render() {
@@ -34,6 +44,7 @@ class Login extends Component {
       form: { getFieldDecorator },
       userLogin: { wrongTime, img },
     } = this.props;
+    const { alertVisible, alertMessage } = this.state;
     return (
       <div className={styles.loginContainer}>
         <Row>
@@ -88,6 +99,16 @@ class Login extends Component {
                 </div>
               </Form.Item>
             )}
+            {alertVisible ? (
+              <Alert
+                message={alertMessage}
+                type="error"
+                closable
+                afterClose={() => {
+                  this.setState({ alertVisible: false });
+                }}
+              />
+            ) : null}
             <AxxButton
               className={styles.loginBtn}
               onClick={this.handleSubmit}

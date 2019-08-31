@@ -32,26 +32,28 @@ const codeMessage = {
   502: '网关错误。',
   503: '服务不可用，服务器暂时过载或维护。',
   504: '网关超时。',
-  505: 'HTTP版本不受支持'
+  505: 'HTTP版本不受支持',
 };
 
 /**
- * 异常处理程序,只能处理http错误
+ * 异常处理程序,http有错误进入这里(status!=2xx)
  */
 const errorHandler = error => {
   const { response } = error;
   if (response && response.status) {
     const errorText = codeMessage[response.status] || response.statusText;
-    const { status } = response;
+    const { status, url } = response;
     notification.error({
-      message: `请求错误 ${status}`,
-      description: errorText
+      message: `请求错误 ${status}: ${url}`,
+      description: errorText,
     });
   } else if (!response) {
     notification.error({
       description: '您的网络发生异常，无法连接服务器',
-      message: '网络异常'
+      message: '网络异常',
     });
+    console.log('err handle', error);
+    return error;
   }
 
   return response;
@@ -59,12 +61,11 @@ const errorHandler = error => {
 /**
  * 配置request请求时的默认参数
  */
-
 const request = extend({
   maxCache: 10, // 最大缓存个数, 超出后会自动清掉按时间最开始的一个.
   prefix: '/teacherApi', // 教师端前缀
   errorHandler,
-  timeout: 5000
+  timeout: 5000,
   // 默认错误处理
 });
 
@@ -87,16 +88,16 @@ request.use(async (ctx, next) => {
   await next();
   // 响应后
   const {
-    res: { code }
+    res: { code },
   } = ctx;
   if (code === 'UNAUTHC' || code === 'EXPIRE' || code === 'EXCEPTION') {
     // 对异常情况做对应处理
-    console.log('中间件异常', ctx.res);
     Storage.remove('token');
     setTimeout(() => {
       router.replace('/attendance');
     }, 500);
   }
+  return ctx;
 });
 
 export default request;

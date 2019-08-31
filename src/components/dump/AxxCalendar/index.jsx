@@ -32,9 +32,11 @@ class AxxCalendar extends Component {
       </>
     );
   };
-
+  onSelect = value => {
+    this.props.onChange(value);
+  };
   onPanelChange = (value, mode) => {
-    console.log(value, mode);
+    this.props.onPanelChange(value,mode);
   };
 
   // validRange = () => [moment('2016-1-1'), moment('2020-12-31')];
@@ -46,6 +48,7 @@ class AxxCalendar extends Component {
           fullscreen={false}
           onPanelChange={this.onPanelChange}
           dateCellRender={this.dateCellRender}
+          onSelect={this.onSelect}
           // validRange={this.validRange}
         ></Calendar>
       </div>
