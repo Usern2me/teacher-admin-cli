@@ -76,7 +76,7 @@ const SettingModel = {
       updateColorWeak(!!colorWeak);
       window.history.replaceState(null, 'setting', urlParams.href);
       return { ...state, ...payload };
-    },
-  },
+    }
+  }
 };
 export default SettingModel;

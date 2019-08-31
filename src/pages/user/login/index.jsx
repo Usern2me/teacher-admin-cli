@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'dva';
 import { Form, Row, Col } from 'antd';
 import { AxxButton, AxxInput } from '@dump';
+import { getCaptcha } from '@/services/user';
 
 import styles from './style.less';
 
@@ -22,11 +23,9 @@ class Login extends Component {
     });
   };
 
-  handleChangeCaptcha = () => {
+  handleChangeCaptcha = async () => {
     const { dispatch } = this.props;
-    const result = dispatch({
-      type: 'userLogin/getCaptcha',
-    });
+    const result = await getCaptcha();
     console.log('result', result);
   };
 
@@ -35,14 +34,17 @@ class Login extends Component {
       form: { getFieldDecorator },
       userLogin: { wrongTime, img },
     } = this.props;
-
     return (
       <div className={styles.loginContainer}>
         <Row>
           <Col span={10} offset={2}>
-            <img src={require('@assets/login_bg.png')} alt="登录背景占位图" />
+            <img
+              className={styles.loginImg}
+              src={require('@assets/login_bg.png')}
+              alt="登录背景占位图"
+            />
           </Col>
-          <Col span={8} offset={2}>
+          <Col className={styles.login_content} xs={6} sm={6} md={8} lg={8} xl={8}>
             <Form.Item>
               {getFieldDecorator('username', {
                 rules: [{ required: true, message: '请输入用户名' }],
@@ -67,15 +69,23 @@ class Login extends Component {
             </Form.Item>
             {wrongTime > 0 && (
               <Form.Item onClick={this.handleChangeCaptcha}>
-                {getFieldDecorator('captcha', {
-                  rules: [
-                    {
-                      required: true,
-                      message: '请输入验证码',
-                    },
-                  ],
-                })(<AxxInput autoComplete="off" label="验证码"></AxxInput>)}
-                {wrongTime > 0 && <img className={styles.captcheImg} src={img} alt="code" />}
+                <div className={styles.captchaBox}>
+                  {getFieldDecorator('captcha', {
+                    rules: [
+                      {
+                        required: true,
+                        message: '请输入验证码',
+                      },
+                    ],
+                  })(
+                    <AxxInput
+                      customClass={styles.captchaInput}
+                      autoComplete="off"
+                      label="验证码"
+                    ></AxxInput>,
+                  )}
+                  {wrongTime > 0 && <img className={styles.captcheImg} src={img} alt="code" />}
+                </div>
               </Form.Item>
             )}
             <AxxButton

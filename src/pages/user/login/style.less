@@ -8,14 +8,29 @@
   @media screen and (max-width: @screen-sm) {
     width: 95%;
   }
+  .login_content {
+    box-shadow: 0px 1px 5px 0px rgba(0, 0, 0, 0.1);
+    border-radius: 16px;
+    padding: 44px 24px 24px;
+  }
+  .loginImg {
+    width: 82%;
+  }
   .loginBtn {
     margin-top: 24px;
   }
+  .captchaBox {
+    display: flex;
+    justify-content: space-between;
+  }
+  .captchaInput {
+    flex: 1;
+  }
   .captcheImg {
-    position: absolute;
-    top: 11px;
-    left: 319px;
-    width: 108px;
-    height: 44px;
+    flex: none;
+    max-width: 90px;
+    height: 33px;
+    margin-top: 24px;
+    margin-left: 8px;
   }
 }

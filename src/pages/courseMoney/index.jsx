@@ -13,7 +13,7 @@ import {
   Menu,
   Row,
   Select,
-  message,
+  message
 } from 'antd';
 import React, { Component } from 'react';
 import { PageHeaderWrapper } from '@ant-design/pro-layout';
@@ -26,40 +26,40 @@ import styles from './style.less';
 /* eslint react/no-multi-comp:0 */
 @connect(({ courseMoney, loading }) => ({
   courseMoney,
-  loading: loading.models.rule,
+  loading: loading.models.rule
 }))
 class CourseMoney extends Component {
   state = {
-    formValues: {},
+    formValues: {}
   };
 
   columns = [
     {
       title: 'ID',
-      dataIndex: 'courseId',
+      dataIndex: 'courseId'
     },
     {
       title: '学期',
-      dataIndex: 'term',
+      dataIndex: 'term'
     },
     {
       title: '课程名称',
-      dataIndex: 'courseName',
+      dataIndex: 'courseName'
     },
     {
       title: '班级人数',
-      dataIndex: 'courseCount',
+      dataIndex: 'courseCount'
     },
     {
       title: '课程收入',
-      dataIndex: 'price',
-    },
+      dataIndex: 'price'
+    }
   ];
 
   componentDidMount() {
     const { dispatch } = this.props;
     dispatch({
-      type: 'courseMoney/fetch',
+      type: 'courseMoney/fetch'
     });
   }
 
@@ -75,7 +75,7 @@ class CourseMoney extends Component {
       currentPage: pagination.current,
       pageSize: pagination.pageSize,
       ...formValues,
-      ...filters,
+      ...filters
     };
 
     if (sorter.field) {
@@ -95,7 +95,7 @@ class CourseMoney extends Component {
   render() {
     const {
       courseMoney: { data },
-      loading,
+      loading
     } = this.props;
     return (
       <PageHeaderWrapper>

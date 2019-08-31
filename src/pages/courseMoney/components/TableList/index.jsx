@@ -17,7 +17,7 @@ class TableList extends Component {
     const paginationProps = pagination
       ? {
           showQuickJumper: true,
-          ...pagination,
+          ...pagination
         }
       : false;
     return (

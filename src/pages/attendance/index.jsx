@@ -13,7 +13,7 @@ import {
   Menu,
   Row,
   Select,
-  message,
+  message
 } from 'antd';
 import React, { Component } from 'react';
 import { PageHeaderWrapper } from '@ant-design/pro-layout';
@@ -23,47 +23,46 @@ import StandardTable from './components/StandardTable';
 import { AxxCalendar } from '@dump';
 import styles from './style.less';
 
-const getValue = obj =>
-  Object.keys(obj)
+const getValue = obj => Object.keys(obj)
     .map(key => obj[key])
     .join(',');
 
 /* eslint react/no-multi-comp:0 */
 @connect(({ attendance, loading }) => ({
   attendance,
-  loading: loading.models.rule,
+  loading: loading.models.rule
 }))
 class Attendance extends Component {
   state = {
     selectedRows: [],
-    formValues: {},
+    formValues: {}
   };
 
   columns = [
     {
       title: 'ID',
-      dataIndex: 'courseId',
+      dataIndex: 'courseId'
     },
     {
       title: '课程名称',
-      dataIndex: 'courseName',
+      dataIndex: 'courseName'
     },
     {
       title: '课次名称',
-      dataIndex: 'knowledgeName',
+      dataIndex: 'knowledgeName'
     },
     {
       title: '课程时间',
-      dataIndex: 'knowledgeTime',
+      dataIndex: 'knowledgeTime'
     },
     {
       title: '签到时间',
-      dataIndex: 'attendanceTime',
+      dataIndex: 'attendanceTime'
     },
     {
       title: '补签',
-      dataIndex: 'isRepair',
-    },
+      dataIndex: 'isRepair'
+    }
   ];
 
   componentDidMount() {
@@ -73,8 +72,8 @@ class Attendance extends Component {
       payload: {
         endTime: '2019-07-29T07:53:49.873Z',
         startTime: '2019-08-29T07:53:49.873Z',
-        teacherId: 12267,
-      },
+        teacherId: 12267
+      }
     });
   }
 
@@ -90,7 +89,7 @@ class Attendance extends Component {
       currentPage: pagination.current,
       pageSize: pagination.pageSize,
       ...formValues,
-      ...filters,
+      ...filters
     };
 
     if (sorter.field) {
@@ -99,14 +98,14 @@ class Attendance extends Component {
 
     dispatch({
       type: 'attendance/fetch',
-      payload: params,
+      payload: params
     });
   };
 
   render() {
     const {
       attendance: { data },
-      loading,
+      loading
     } = this.props;
 
     return (

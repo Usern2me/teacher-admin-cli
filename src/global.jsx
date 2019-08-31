@@ -2,6 +2,7 @@ import { Button, message, notification } from 'antd';
 import React from 'react';
 import { formatMessage } from 'umi-plugin-react/locale';
 import defaultSettings from '../config/defaultSettings';
+
 const { pwa } = defaultSettings; // if pwa is true
 
 if (pwa) {
@@ -9,7 +10,7 @@ if (pwa) {
   window.addEventListener('sw.offline', () => {
     message.warning(
       formatMessage({
-        id: 'app.pwa.offline',
+        id: 'app.pwa.offline'
       }),
     );
   }); // Pop up a prompt on the page asking the user if they want to use the latest version
@@ -39,7 +40,7 @@ if (pwa) {
 
         worker.postMessage(
           {
-            type: 'skip-waiting',
+            type: 'skip-waiting'
           },
           [channel.port2],
         );
@@ -59,20 +60,20 @@ if (pwa) {
         }}
       >
         {formatMessage({
-          id: 'app.pwa.serviceworker.updated.ok',
+          id: 'app.pwa.serviceworker.updated.ok'
         })}
       </Button>
     );
     notification.open({
       message: formatMessage({
-        id: 'app.pwa.serviceworker.updated',
+        id: 'app.pwa.serviceworker.updated'
       }),
       description: formatMessage({
-        id: 'app.pwa.serviceworker.updated.hint',
+        id: 'app.pwa.serviceworker.updated.hint'
       }),
       btn,
       key,
-      onClose: async () => {},
+      onClose: async () => {}
     });
   });
 } else if ('serviceWorker' in navigator) {

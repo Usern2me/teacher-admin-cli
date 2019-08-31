@@ -1,12 +1,16 @@
-import { Badge, Icon, Spin, Tabs } from 'antd';
+import {
+ Badge, Icon, Spin, Tabs
+} from 'antd';
 import React, { Component } from 'react';
 import classNames from 'classnames';
 import NoticeList from './NoticeList';
 import HeaderDropdown from '../HeaderDropdown';
 import styles from './index.less';
+
 const { TabPane } = Tabs;
 export default class NoticeIcon extends Component {
   static Tab = NoticeList;
+
   static defaultProps = {
     onItemClick: () => {},
     onPopupVisibleChange: () => {},
@@ -15,11 +19,13 @@ export default class NoticeIcon extends Component {
     onViewMore: () => {},
     loading: false,
     clearClose: false,
-    emptyImage: 'https://gw.alipayobjects.com/zos/rmsportal/wAhyIChODzsoKIOBHcBk.svg',
+    emptyImage: 'https://gw.alipayobjects.com/zos/rmsportal/wAhyIChODzsoKIOBHcBk.svg'
   };
+
   state = {
-    visible: false,
+    visible: false
   };
+
   onItemClick = (item, tabProps) => {
     const { onItemClick } = this.props;
 
@@ -27,6 +33,7 @@ export default class NoticeIcon extends Component {
       onItemClick(item, tabProps);
     }
   };
+
   onClear = (name, key) => {
     const { onClear } = this.props;
 
@@ -34,6 +41,7 @@ export default class NoticeIcon extends Component {
       onClear(name, key);
     }
   };
+
   onTabChange = tabType => {
     const { onTabChange } = this.props;
 
@@ -41,6 +49,7 @@ export default class NoticeIcon extends Component {
       onTabChange(tabType);
     }
   };
+
   onViewMore = (tabProps, event) => {
     const { onViewMore } = this.props;
 
@@ -50,7 +59,9 @@ export default class NoticeIcon extends Component {
   };
 
   getNotificationBox() {
-    const { children, loading, clearText, viewMoreText } = this.props;
+    const {
+ children, loading, clearText, viewMoreText
+} = this.props;
 
     if (!children) {
       return null;
@@ -61,7 +72,9 @@ export default class NoticeIcon extends Component {
         return null;
       }
 
-      const { list, title, count, tabKey, showClear, showViewMore } = child.props;
+      const {
+ list, title, count, tabKey, showClear, showViewMore
+} = child.props;
       const len = list && list.length ? list.length : 0;
       const msgCount = count || count === 0 ? count : len;
       const tabTitle = msgCount > 0 ? `${title} (${msgCount})` : title;
@@ -96,7 +109,7 @@ export default class NoticeIcon extends Component {
   handleVisibleChange = visible => {
     const { onPopupVisibleChange } = this.props;
     this.setState({
-      visible,
+      visible
     });
 
     if (onPopupVisibleChange) {
@@ -105,7 +118,9 @@ export default class NoticeIcon extends Component {
   };
 
   render() {
-    const { className, count, popupVisible, bell } = this.props;
+    const {
+ className, count, popupVisible, bell
+} = this.props;
     const { visible } = this.state;
     const noticeButtonClass = classNames(className, styles.noticeButton);
     const notificationBox = this.getNotificationBox();
@@ -113,13 +128,13 @@ export default class NoticeIcon extends Component {
     const trigger = (
       <span
         className={classNames(noticeButtonClass, {
-          opened: visible,
+          opened: visible
         })}
       >
         <Badge
           count={count}
           style={{
-            boxShadow: 'none',
+            boxShadow: 'none'
           }}
           className={styles.badge}
         >

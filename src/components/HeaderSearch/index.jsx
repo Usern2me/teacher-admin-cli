@@ -3,6 +3,7 @@ import React, { Component } from 'react';
 import classNames from 'classnames';
 import debounce from 'lodash/debounce';
 import styles from './index.less';
+
 export default class HeaderSearch extends Component {
   static defaultProps = {
     defaultActiveFirstOption: false,
@@ -13,13 +14,13 @@ export default class HeaderSearch extends Component {
     placeholder: '',
     dataSource: [],
     defaultOpen: false,
-    onVisibleChange: () => {},
+    onVisibleChange: () => {}
   };
 
   static getDerivedStateFromProps(props) {
     if ('open' in props) {
       return {
-        searchMode: props.open,
+        searchMode: props.open
       };
     }
 
@@ -27,17 +28,18 @@ export default class HeaderSearch extends Component {
   }
 
   timeout = undefined;
+
   inputRef = null;
 
   constructor(props) {
     super(props);
     this.state = {
       searchMode: props.defaultOpen,
-      value: '',
+      value: ''
     };
     this.debouncePressEnter = debounce(this.debouncePressEnter, 500, {
       leading: true,
-      trailing: false,
+      trailing: false
     });
   }
 
@@ -54,11 +56,12 @@ export default class HeaderSearch extends Component {
       }, 0);
     }
   };
+
   onChange = value => {
     if (typeof value === 'string') {
       const { onSearch, onChange } = this.props;
       this.setState({
-        value,
+        value
       });
 
       if (onSearch) {
@@ -70,12 +73,13 @@ export default class HeaderSearch extends Component {
       }
     }
   };
+
   enterSearchMode = () => {
     const { onVisibleChange } = this.props;
     onVisibleChange(true);
     this.setState(
       {
-        searchMode: true,
+        searchMode: true
       },
       () => {
         const { searchMode } = this.state;
@@ -86,12 +90,14 @@ export default class HeaderSearch extends Component {
       },
     );
   };
+
   leaveSearchMode = () => {
     this.setState({
       searchMode: false,
-      value: '',
+      value: ''
     });
   };
+
   debouncePressEnter = () => {
     const { onPressEnter } = this.props;
     const { value } = this.state;
@@ -99,12 +105,14 @@ export default class HeaderSearch extends Component {
   };
 
   render() {
-    const { className, placeholder, open, ...restProps } = this.props;
+    const {
+ className, placeholder, open, ...restProps
+} = this.props;
     const { searchMode, value } = this.state;
     delete restProps.defaultOpen; // for rc-select not affected
 
     const inputClass = classNames(styles.input, {
-      [styles.show]: searchMode,
+      [styles.show]: searchMode
     });
     return (
       <span

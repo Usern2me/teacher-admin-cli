@@ -9,6 +9,6 @@ export async function queryNotices() {
 export async function getCaptcha(params) {
   return request('/auth/verifyCode', {
     method: 'post',
-    data: params,
+    data: params
   });
 }

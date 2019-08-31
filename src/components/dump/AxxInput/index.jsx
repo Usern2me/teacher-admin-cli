@@ -2,6 +2,7 @@
  * AXXInput:
  *  属性：
  *  labelValue:xxx,
+ *  customClass:xxx,// 设置在最外层的class
  *  type:['text','textarea','password','search]
  */
 import React, { forwardRef } from 'react';
@@ -11,7 +12,7 @@ import styles from './index.less';
 const { Password, Search } = Input;
 
 const AxxInput = (props, ref) => {
-  const { children, label, showeye, search } = props;
+  const { children, label, showeye, search, customClass } = props;
 
   const handleDivChange = e => {
     if (showeye || search) {
@@ -25,17 +26,21 @@ const AxxInput = (props, ref) => {
   };
 
   return (
-    <div onChange={handleDivChange} ref={ref} className={styles['override-ant-btn']}>
+    <div
+      onChange={handleDivChange}
+      ref={ref}
+      className={`${styles['override-ant-btn']} ${customClass}`}
+    >
       {showeye ? (
-        <Password required {...props}>
+        <Password autoComplete="off" required {...props}>
           {children}
         </Password>
       ) : search ? (
-        <Search required {...props}>
+        <Search autoComplete="off" required {...props}>
           {children}
         </Search>
       ) : (
-        <Input required {...props}>
+        <Input autoComplete="off" required {...props}>
           {children}
         </Input>
       )}

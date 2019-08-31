@@ -4,6 +4,7 @@ import menu from './pt-BR/menu';
 import pwa from './pt-BR/pwa';
 import settingDrawer from './pt-BR/settingDrawer';
 import settings from './pt-BR/settings';
+
 export default {
   'navBar.lang': 'Idiomas',
   'layout.user.link.help': 'ajuda',
@@ -15,5 +16,5 @@ export default {
   ...settingDrawer,
   ...settings,
   ...pwa,
-  ...component,
+  ...component
 };

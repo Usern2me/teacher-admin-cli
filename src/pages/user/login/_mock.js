@@ -10,7 +10,7 @@ export default {
       res.send({
         status: 'ok',
         type,
-        currentAuthority: 'admin',
+        currentAuthority: 'admin'
       });
       return;
     }
@@ -19,7 +19,7 @@ export default {
       res.send({
         status: 'ok',
         type,
-        currentAuthority: 'user',
+        currentAuthority: 'user'
       });
       return;
     }
@@ -27,8 +27,8 @@ export default {
     res.send({
       status: 'error',
       type,
-      currentAuthority: 'guest',
+      currentAuthority: 'guest'
     });
   },
-  'GET  /api/login/captcha': getFakeCaptcha,
+  'GET  /api/login/captcha': getFakeCaptcha
 };

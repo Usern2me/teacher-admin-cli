@@ -5,11 +5,11 @@ const Model = {
   state: {
     data: {
       list: [],
-      pagination: {},
-    },
+      pagination: {}
+    }
   },
   effects: {
-    *fetch({ payload }, { call, put }) {
+    * fetch({ payload }, { call, put }) {
       // const response = yield call(getSalaryList, payload);
       const response = {
         code: 'SUCCESS',
@@ -28,7 +28,7 @@ const Model = {
             teacherName: '测试-富宛荣',
             term: '3',
             totalTime: 110880,
-            type: 1,
+            type: 1
           },
           {
             courseCount: 0,
@@ -44,7 +44,7 @@ const Model = {
             teacherName: '测试-富宛荣',
             term: '3',
             totalTime: 94140,
-            type: 1,
+            type: 1
           },
           {
             courseCount: 0,
@@ -60,7 +60,7 @@ const Model = {
             teacherName: '测试-富宛荣',
             term: '3',
             totalTime: 39567,
-            type: 1,
+            type: 1
           },
           {
             courseCount: 1,
@@ -76,25 +76,25 @@ const Model = {
             teacherName: '测试-富宛荣',
             term: '3',
             totalTime: 6060,
-            type: 1,
-          },
+            type: 1
+          }
         ],
         msg: '成功',
-        version: '3.1.0',
+        version: '3.1.0'
       };
       yield put({
         type: 'save',
-        payload: response.data,
+        payload: response.data
       });
-    },
+    }
   },
   reducers: {
     save(state, { payload }) {
       return {
         ...state,
-        data: { list: payload },
+        data: { list: payload }
       };
-    },
-  },
+    }
+  }
 };
 export default Model;

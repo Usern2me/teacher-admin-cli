@@ -3,6 +3,7 @@
 /* eslint-disable import/no-extraneous-dependencies */
 import client from 'webpack-theme-color-replacer/client';
 import generate from '@ant-design/colors/lib/generate';
+
 export default {
   getAntdSerials(color) {
     const lightCount = 9;
@@ -26,8 +27,8 @@ export default {
       changeUrl(cssUrl) {
         // while router is not `hash` mode, it needs absolute path
         return `/${cssUrl}`;
-      },
+      }
     };
     return client.changer.changeColor(options, Promise);
-  },
+  }
 };

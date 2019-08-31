@@ -3,23 +3,23 @@ import { queryCurrent } from '@/services/user';
 const UserModel = {
   namespace: 'user',
   state: {
-    currentUser: {},
+    currentUser: {}
   },
   effects: {
-    *fetchCurrent(_, { call, put }) {
+    * fetchCurrent(_, { call, put }) {
       // const response = yield call(queryCurrent);
       const response = {
         name: 'Serati Ma',
         avatar: 'https://gw.alipayobjects.com/zos/rmsportal/BiazfanxmamNRoxxVxka.png',
         userid: '00000001',
         email: 'antdesign@alipay.com',
-        phone: '0752-268888888',
+        phone: '0752-268888888'
       };
       yield put({
         type: 'saveCurrentUser',
-        payload: response,
+        payload: response
       });
-    },
+    }
   },
   reducers: {
     saveCurrentUser(state, action) {
@@ -28,7 +28,7 @@ const UserModel = {
 
     changeNotifyCount(
       state = {
-        currentUser: {},
+        currentUser: {}
       },
       action,
     ) {
@@ -37,10 +37,10 @@ const UserModel = {
         currentUser: {
           ...state.currentUser,
           notifyCount: action.payload.totalCount,
-          unreadCount: action.payload.unreadCount,
-        },
+          unreadCount: action.payload.unreadCount
+        }
       };
-    },
-  },
+    }
+  }
 };
 export default UserModel;

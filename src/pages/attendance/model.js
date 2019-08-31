@@ -6,11 +6,11 @@ const Model = {
   state: {
     data: {
       list: [],
-      pagination: {},
-    },
+      pagination: {}
+    }
   },
   effects: {
-    *fetch({ payload }, { call, put }) {
+    * fetch({ payload }, { call, put }) {
       // const response = yield call(getAttendanceList, payload);
       const response = {
         code: 'SUCCESS',
@@ -26,7 +26,7 @@ const Model = {
             knowledgeName: '【阅】名篇精读《快手刘》',
             knowledgeStartTime: '2019-05-08 18:30:00',
             status: 1,
-            teacherId: 11919,
+            teacherId: 11919
           },
           {
             attendanceDay: '2019-03-20 18:05:18',
@@ -39,11 +39,11 @@ const Model = {
             knowledgeName: '【阅】名篇精读《快手刘》',
             knowledgeStartTime: '2019-05-08 18:30:00',
             status: 1,
-            teacherId: 11919,
-          },
+            teacherId: 11919
+          }
         ],
         msg: '成功',
-        version: '3.1.0',
+        version: '3.1.0'
       };
       if (response && response.code && response.code === 'SUCCESS') {
         const result = response.data.map(v => {
@@ -54,19 +54,19 @@ const Model = {
         });
         yield put({
           type: 'save',
-          payload: result,
+          payload: result
         });
       }
-    },
+    }
   },
   reducers: {
     save(state, { payload }) {
       return {
         ...state,
-        data: { list: payload },
+        data: { list: payload }
       };
-    },
-  },
+    }
+  }
 };
 
 export default Model;

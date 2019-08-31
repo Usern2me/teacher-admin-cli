@@ -10,4 +10,6 @@ import AxxInput from './AxxInput/index';
 import AxxMonthPicker from './AxxMonthPicker';
 import AxxCalendar from './AxxCalendar';
 
-export { AxxButton, AxxInput, AxxMonthPicker, AxxCalendar };
+export {
+ AxxButton, AxxInput, AxxMonthPicker, AxxCalendar
+};

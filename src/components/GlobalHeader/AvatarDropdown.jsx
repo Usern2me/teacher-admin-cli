@@ -1,4 +1,6 @@
-import { Avatar, Icon, Menu, Spin } from 'antd';
+import {
+ Avatar, Icon, Menu, Spin
+} from 'antd';
 import React from 'react';
 import { connect } from 'dva';
 import router from 'umi/router';
@@ -13,7 +15,7 @@ class AvatarDropdown extends React.Component {
       const { dispatch } = this.props;
       if (dispatch) {
         dispatch({
-          type: 'login/logout',
+          type: 'login/logout'
         });
       }
       return;
@@ -59,7 +61,7 @@ class AvatarDropdown extends React.Component {
         size="small"
         style={{
           marginLeft: 8,
-          marginRight: 8,
+          marginRight: 8
         }}
       />
     );
@@ -67,5 +69,5 @@ class AvatarDropdown extends React.Component {
 }
 
 export default connect(({ user }) => ({
-  currentUser: user.currentUser,
+  currentUser: user.currentUser
 }))(AvatarDropdown);

@@ -4,6 +4,6 @@ import request from '@/utils/request';
 export async function getSalaryList(params) {
   return request('/salary/list', {
     method: 'post',
-    data: params,
+    data: params
   });
 }

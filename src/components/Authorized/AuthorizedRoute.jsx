@@ -2,7 +2,9 @@ import { Redirect, Route } from 'umi';
 import React from 'react';
 import Authorized from './Authorized';
 
-const AuthorizedRoute = ({ component: Component, render, authority, redirectPath, ...rest }) => (
+const AuthorizedRoute = ({
+ component: Component, render, authority, redirectPath, ...rest
+}) => (
   <Authorized
     authority={authority}
     noMatch={
@@ -11,7 +13,7 @@ const AuthorizedRoute = ({ component: Component, render, authority, redirectPath
         render={() => (
           <Redirect
             to={{
-              pathname: redirectPath,
+              pathname: redirectPath
             }}
           />
         )}
