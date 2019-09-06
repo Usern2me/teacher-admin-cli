@@ -115,6 +115,11 @@ export default {
               component: './Welcome',
             },
             {
+              name: 'form',
+              path: '/form/basic/form',
+              component: './form/basic/form',
+            },
+            {
               component: './404',
             },
           ],
@@ -124,7 +129,6 @@ export default {
         },
       ],
     },
-
     {
       component: './404',
     },
