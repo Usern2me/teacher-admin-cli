@@ -13,7 +13,7 @@ import {
   Menu,
   Row,
   Select,
-  message
+  message,
 } from 'antd';
 import React, { Component } from 'react';
 import { PageHeaderWrapper } from '@ant-design/pro-layout';
@@ -24,88 +24,91 @@ import TableList from './components/TableList';
 import styles from './style.less';
 
 /* eslint react/no-multi-comp:0 */
-@connect(({ courseMoney, loading }) => ({
+@connect(({ courseMoney, user, loading }) => ({
   courseMoney,
-  loading: loading.models.rule
+  user,
+  loading: loading.models.rule,
 }))
 class CourseMoney extends Component {
   state = {
-    formValues: {}
+    formValues: {},
   };
 
   columns = [
     {
       title: 'ID',
-      dataIndex: 'courseId'
+      dataIndex: 'courseId',
     },
     {
       title: '学期',
-      dataIndex: 'term'
+      dataIndex: 'term',
     },
     {
       title: '课程名称',
-      dataIndex: 'courseName'
+      dataIndex: 'courseName',
     },
     {
       title: '班级人数',
-      dataIndex: 'courseCount'
+      dataIndex: 'courseCount',
     },
     {
       title: '课程收入',
-      dataIndex: 'price'
-    }
+      dataIndex: 'price',
+    },
   ];
 
   componentDidMount() {
     const { dispatch } = this.props;
+    const today = moment();
+    let startTime = today.clone().startOf('M');
+    let endTime = today.clone().endOf('M');
+    let year = today.clone().format('YYYY');
+    let month = today.clone().format('MM');
+    let { teacherId } = this.props.user.currentUser;
+    let params = {
+      startTime,
+      endTime,
+      month,
+      year,
+      term: [],
+      teacherId,
+    };
     dispatch({
-      type: 'courseMoney/fetch'
+      type: 'courseMoney/fetch',
+      payload: params,
     });
   }
 
-  handleStandardTableChange = (pagination, filtersArg, sorter) => {
-    const { dispatch } = this.props;
-    const { formValues } = this.state;
-    const filters = Object.keys(filtersArg).reduce((obj, key) => {
-      const newObj = { ...obj };
-      newObj[key] = getValue(filtersArg[key]);
-      return newObj;
-    }, {});
-    const params = {
-      currentPage: pagination.current,
-      pageSize: pagination.pageSize,
-      ...formValues,
-      ...filters
-    };
-
-    if (sorter.field) {
-      params.sorter = `${sorter.field}_${sorter.order}`;
-    }
-  };
-
   onMonthChange = e => {
-    console.log('month Change--->', e.format('YYYY-MM-DD'));
+    let startTime = e.clone().startOf('M');
+    let endTime = e.clone().endOf('M');
+    let year = e.clone().format('YYYY');
+    let month = e.clone().format('MM');
+    let { teacherId } = this.props.user.currentUser;
+    let params = {
+      startTime,
+      endTime,
+      month,
+      year,
+      term: [],
+      teacherId,
+    };
     const { dispatch } = this.props;
-    // dispatch({
-    //   type: 'courseMoney/fetch',
-    //   payload: { teacherId: 12267, year: e.format('YYYY'), month: e.format('MM') }
-    // });
+    dispatch({
+      type: 'courseMoney/fetch',
+      payload: params,
+    });
   };
 
   render() {
     const {
       courseMoney: { data },
-      loading
+      loading,
     } = this.props;
     return (
       <PageHeaderWrapper>
         <AxxMonthPicker onChange={this.onMonthChange}></AxxMonthPicker>
-        <TableList
-          columns={this.columns}
-          data={data}
-          loading={loading}
-          onChange={this.handleStandardTableChange}
-        ></TableList>
+        <TableList columns={this.columns} data={data} loading={loading}></TableList>
       </PageHeaderWrapper>
     );
   }

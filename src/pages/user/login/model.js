@@ -64,8 +64,8 @@ const Model = {
     setToken({ payload }) {
       Storage.set('token', payload);
     },
-    removeToken(payload) {
-      Storage.remove('token', payload);
+    removeToken() {
+      Storage.remove('token');
     },
   },
   reducers: {

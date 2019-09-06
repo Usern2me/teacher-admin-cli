@@ -6,9 +6,15 @@ export async function queryCurrent() {
 export async function queryNotices() {
   return request('/api/notices');
 }
+export async function loginOut(params) {
+  return request('/user/logout', {
+    method: 'post',
+    data: params,
+  });
+}
 export async function getCaptcha(params) {
   return request('/auth/verifyCode', {
     method: 'post',
-    data: params
+    data: params,
   });
 }

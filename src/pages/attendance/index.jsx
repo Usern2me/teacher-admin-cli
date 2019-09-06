@@ -23,12 +23,6 @@ import StandardTable from './components/StandardTable';
 import { AxxCalendar } from '@dump';
 import styles from './style.less';
 
-const getValue = obj =>
-  Object.keys(obj)
-    .map(key => obj[key])
-    .join(',');
-
-/* eslint react/no-multi-comp:0 */
 @connect(({ attendance, user, loading }) => ({
   attendance,
   user,
@@ -74,6 +68,11 @@ class Attendance extends Component {
   onCalendarChange = data => {
     this.dispatchData(data, data);
   };
+  onPanelChange = date => {
+    const startDate = date.clone().startOf('month');
+    const endDate = date.clone().endOf('month');
+    this.dispatchData(startDate, endDate);
+  };
   dispatchData = (startTime, endTime) => {
     const {
       dispatch,
@@ -91,7 +90,6 @@ class Attendance extends Component {
       payload: params,
     });
   };
-  onPanelChange = (date, mode) => {};
 
   render() {
     const {
