@@ -13,7 +13,7 @@ const AuthorizedRoute = ({
         render={() => (
           <Redirect
             to={{
-              pathname: redirectPath
+              pathname: redirectPath,
             }}
           />
         )}

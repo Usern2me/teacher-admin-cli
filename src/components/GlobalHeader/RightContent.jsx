@@ -43,5 +43,5 @@ const GlobalHeaderRight = props => {
 
 export default connect(({ settings }) => ({
   theme: settings.navTheme,
-  layout: settings.layout
+  layout: settings.layout,
 }))(GlobalHeaderRight);

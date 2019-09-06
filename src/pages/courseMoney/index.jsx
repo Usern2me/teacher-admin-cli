@@ -60,12 +60,12 @@ class CourseMoney extends Component {
   componentDidMount() {
     const { dispatch } = this.props;
     const today = moment();
-    let startTime = today.clone().startOf('M');
-    let endTime = today.clone().endOf('M');
-    let year = today.clone().format('YYYY');
-    let month = today.clone().format('MM');
-    let { teacherId } = this.props.user.currentUser;
-    let params = {
+    const startTime = today.clone().startOf('M');
+    const endTime = today.clone().endOf('M');
+    const year = today.clone().format('YYYY');
+    const month = today.clone().format('MM');
+    const { teacherId } = this.props.user.currentUser;
+    const params = {
       startTime,
       endTime,
       month,
@@ -80,12 +80,12 @@ class CourseMoney extends Component {
   }
 
   onMonthChange = e => {
-    let startTime = e.clone().startOf('M');
-    let endTime = e.clone().endOf('M');
-    let year = e.clone().format('YYYY');
-    let month = e.clone().format('MM');
-    let { teacherId } = this.props.user.currentUser;
-    let params = {
+    const startTime = e.clone().startOf('M');
+    const endTime = e.clone().endOf('M');
+    const year = e.clone().format('YYYY');
+    const month = e.clone().format('MM');
+    const { teacherId } = this.props.user.currentUser;
+    const params = {
       startTime,
       endTime,
       month,

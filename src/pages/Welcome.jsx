@@ -5,7 +5,7 @@ export default () => (
   <PageHeaderWrapper>
     <p
       style={{
-        textAlign: 'center'
+        textAlign: 'center',
       }}
     >
       Want to add more pages? Please refer to{' '}

@@ -17,7 +17,7 @@ class StandardTable extends Component {
     const paginationProps = pagination
       ? {
           showQuickJumper: true,
-          ...pagination
+          ...pagination,
         }
       : false;
     return (

@@ -3,7 +3,7 @@ import defaultConfig from '../../../config/defaultSettings';
 
 const { iconfontUrl } = defaultConfig;
 const IconFont = Icon.createFromIconfontCN({
-  scriptUrl: iconfontUrl
+  scriptUrl: iconfontUrl,
 });
 
 export default IconFont;

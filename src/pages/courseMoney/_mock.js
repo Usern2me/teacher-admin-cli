@@ -11,7 +11,7 @@ for (let i = 0; i < 8; i += 1) {
     name: `TradeCode ${i}`,
     id: i,
     classNum: Math.floor(Math.random() * 10) % 4,
-    income: Math.ceil(Math.random() * 100)
+    income: Math.ceil(Math.random() * 100),
   });
 }
 
@@ -37,13 +37,13 @@ function getRule(req, res, u) {
     pagination: {
       total: dataSource.length,
       pageSize,
-      current: parseInt(`${params.currentPage}`, 10) || 1
-    }
+      current: parseInt(`${params.currentPage}`, 10) || 1,
+    },
   };
   return res.json(result);
 }
 
 export default {
   'GET /api/courseMoney': getRule,
-  'POST /api/courseMoney': getRule
+  'POST /api/courseMoney': getRule,
 };

@@ -31,7 +31,7 @@ const Setting = props => {
     setVisibleAlert(false);
     form.validateFieldsAndScroll((errs, formValue) => {
       if (!errs) {
-        let verifyKey = `${formValue.verifyCode}&${captchaKey}`;
+        const verifyKey = `${formValue.verifyCode}&${captchaKey}`;
         const params = Object.assign(
           {},
           formValue,

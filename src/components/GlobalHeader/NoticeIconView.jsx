@@ -12,7 +12,7 @@ class GlobalHeaderRight extends Component {
 
     if (dispatch) {
       dispatch({
-        type: 'global/fetchNotices'
+        type: 'global/fetchNotices',
       });
     }
   }
@@ -24,7 +24,7 @@ class GlobalHeaderRight extends Component {
     if (dispatch) {
       dispatch({
         type: 'global/changeNoticeReadState',
-        payload: id
+        payload: id,
       });
     }
   };
@@ -36,7 +36,7 @@ class GlobalHeaderRight extends Component {
     if (dispatch) {
       dispatch({
         type: 'global/clearNotices',
-        payload: key
+        payload: key,
       });
     }
   };
@@ -64,13 +64,13 @@ class GlobalHeaderRight extends Component {
           todo: '',
           processing: 'blue',
           urgent: 'red',
-          doing: 'gold'
+          doing: 'gold',
         }[newNotice.status];
         newNotice.extra = (
           <Tag
             color={color}
             style={{
-              marginRight: 0
+              marginRight: 0,
             }}
           >
             {newNotice.extra}
@@ -152,5 +152,5 @@ export default connect(({ user, global, loading }) => ({
   collapsed: global.collapsed,
   fetchingMoreNotices: loading.effects['global/fetchMoreNotices'],
   fetchingNotices: loading.effects['global/fetchNotices'],
-  notices: global.notices
+  notices: global.notices,
 }))(GlobalHeaderRight);

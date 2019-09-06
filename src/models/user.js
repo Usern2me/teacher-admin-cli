@@ -1,6 +1,6 @@
-import { queryCurrent, loginOut } from '@/services/user';
 import { Storage } from '@utils/utils';
 import { routerRedux } from 'dva';
+import { queryCurrent, loginOut } from '@/services/user';
 
 const UserModel = {
   namespace: 'user',

@@ -4,6 +4,6 @@ import request from '@/utils/request';
 export async function userLogin(params) {
   return request('/auth/login/pwd', {
     method: 'post',
-    data: params
+    data: params,
   });
 }

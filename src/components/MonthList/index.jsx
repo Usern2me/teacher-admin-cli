@@ -15,7 +15,7 @@ class MonthList extends Component {
     weekIndex: 0, // 星期几
     selectDay: '2019-8-25', // 用户选择的日期
     dateList: [1, 2, 3, 4, 5, 6, 7],
-    pickerOpen: false
+    pickerOpen: false,
   };
 
   componentDidMount() {
@@ -39,7 +39,7 @@ class MonthList extends Component {
       month,
       day,
       week,
-      weekIndex
+      weekIndex,
     };
   };
 
@@ -82,7 +82,7 @@ class MonthList extends Component {
       year,
       month,
       day,
-      selectDay: date
+      selectDay: date,
     });
     this.formatDateList(date);
   };
@@ -99,7 +99,7 @@ class MonthList extends Component {
 
   render() {
     const {
- weekIndex, year, month, pickerOpen, dateList
+ weekIndex, year, month, pickerOpen, dateList,
 } = this.state;
 
     return (

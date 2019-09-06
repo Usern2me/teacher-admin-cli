@@ -11,5 +11,5 @@ import AxxMonthPicker from './AxxMonthPicker';
 import AxxCalendar from './AxxCalendar';
 
 export {
- AxxButton, AxxInput, AxxMonthPicker, AxxCalendar
+ AxxButton, AxxInput, AxxMonthPicker, AxxCalendar,
 };

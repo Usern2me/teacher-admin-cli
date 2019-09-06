@@ -12,7 +12,7 @@ const Storage = {
   },
   remove(key) {
     localStorage.removeItem(key);
-  }
+  },
 };
 
 export { isUrl, Storage };

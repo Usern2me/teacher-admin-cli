@@ -25,7 +25,7 @@ const footerRender = () => (
     <div
       style={{
         padding: '0px 24px 24px',
-        textAlign: 'center'
+        textAlign: 'center',
       }}
     >
       爱学习在线
@@ -42,10 +42,10 @@ const BasicLayout = props => {
   useEffect(() => {
     if (dispatch) {
       dispatch({
-        type: 'user/fetchCurrent'
+        type: 'user/fetchCurrent',
       });
       dispatch({
-        type: 'settings/getSetting'
+        type: 'settings/getSetting',
       });
     }
   }, []);
@@ -56,7 +56,7 @@ const BasicLayout = props => {
   const handleMenuCollapse = payload => dispatch
     && dispatch({
       type: 'global/changeLayoutCollapsed',
-      payload
+      payload,
     });
 
   return (
@@ -75,9 +75,9 @@ const BasicLayout = props => {
           breadcrumbRender={(routers = []) => [
             {
               path: '/',
-              breadcrumbName: '首页'
+              breadcrumbName: '首页',
             },
-            ...routers
+            ...routers,
           ]}
           itemRender={(route, params, routes, paths) => {
             const first = routes.indexOf(route) === 0;
@@ -102,5 +102,5 @@ const BasicLayout = props => {
 
 export default connect(({ global, settings }) => ({
   collapsed: global.collapsed,
-  settings
+  settings,
 }))(BasicLayout);

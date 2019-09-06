@@ -5,7 +5,7 @@ import { isComponentClass } from './Secured'; // eslint-disable-next-line import
 
 export default class PromiseRender extends React.Component {
   state = {
-    component: () => null
+    component: () => null,
   };
 
   componentDidMount() {
@@ -29,13 +29,13 @@ export default class PromiseRender extends React.Component {
     props.promise
       .then(() => {
         this.setState({
-          component: ok
+          component: ok,
         });
         return true;
       })
       .catch(() => {
         this.setState({
-          component: error
+          component: error,
         });
       });
   } // Determine whether the incoming component has been instantiated
@@ -70,7 +70,7 @@ export default class PromiseRender extends React.Component {
           height: '100%',
           margin: 'auto',
           paddingTop: 50,
-          textAlign: 'center'
+          textAlign: 'center',
         }}
       >
         <Spin size="large" />

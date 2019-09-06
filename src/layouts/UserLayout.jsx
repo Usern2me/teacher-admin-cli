@@ -11,15 +11,15 @@ import styles from './UserLayout.less';
 const UserLayout = props => {
   const {
     route = {
-      routes: []
-    }
+      routes: [],
+    },
   } = props;
   const { routes = [] } = route;
   const {
     children,
     location = {
-      pathname: ''
-    }
+      pathname: '',
+    },
   } = props;
   const { breadcrumb } = getMenuData(routes);
   return (
@@ -28,7 +28,7 @@ const UserLayout = props => {
         pathname: location.pathname,
         breadcrumb,
         formatMessage,
-        ...props
+        ...props,
       })}
     >
       <div className={styles.container}>

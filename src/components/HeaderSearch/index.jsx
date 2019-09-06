@@ -14,13 +14,13 @@ export default class HeaderSearch extends Component {
     placeholder: '',
     dataSource: [],
     defaultOpen: false,
-    onVisibleChange: () => {}
+    onVisibleChange: () => {},
   };
 
   static getDerivedStateFromProps(props) {
     if ('open' in props) {
       return {
-        searchMode: props.open
+        searchMode: props.open,
       };
     }
 
@@ -35,11 +35,11 @@ export default class HeaderSearch extends Component {
     super(props);
     this.state = {
       searchMode: props.defaultOpen,
-      value: ''
+      value: '',
     };
     this.debouncePressEnter = debounce(this.debouncePressEnter, 500, {
       leading: true,
-      trailing: false
+      trailing: false,
     });
   }
 
@@ -61,7 +61,7 @@ export default class HeaderSearch extends Component {
     if (typeof value === 'string') {
       const { onSearch, onChange } = this.props;
       this.setState({
-        value
+        value,
       });
 
       if (onSearch) {
@@ -79,7 +79,7 @@ export default class HeaderSearch extends Component {
     onVisibleChange(true);
     this.setState(
       {
-        searchMode: true
+        searchMode: true,
       },
       () => {
         const { searchMode } = this.state;
@@ -94,7 +94,7 @@ export default class HeaderSearch extends Component {
   leaveSearchMode = () => {
     this.setState({
       searchMode: false,
-      value: ''
+      value: '',
     });
   };
 
@@ -112,7 +112,7 @@ export default class HeaderSearch extends Component {
     delete restProps.defaultOpen; // for rc-select not affected
 
     const inputClass = classNames(styles.input, {
-      [styles.show]: searchMode
+      [styles.show]: searchMode,
     });
     return (
       <span

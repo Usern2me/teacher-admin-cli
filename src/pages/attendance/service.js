@@ -4,6 +4,6 @@ import request from '@/utils/request';
 export async function getAttendanceList(params) {
   return request('/attendance/list', {
     method: 'POST',
-    data: params
+    data: params,
   });
 }

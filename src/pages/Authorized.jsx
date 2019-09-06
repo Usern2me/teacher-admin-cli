@@ -25,12 +25,12 @@ const getRouteAuthority = (path, routeData) => {
 const AuthComponent = ({
   children,
   route = {
-    routes: []
+    routes: [],
   },
   location = {
-    pathname: ''
+    pathname: '',
   },
-  user
+  user,
 }) => {
   const { currentUser } = user;
   const { routes = [] } = route;
@@ -46,5 +46,5 @@ const AuthComponent = ({
 };
 
 export default connect(({ user }) => ({
-  user
+  user,
 }))(AuthComponent);

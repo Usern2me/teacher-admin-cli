@@ -62,17 +62,20 @@ class Attendance extends Component {
   ];
 
   componentDidMount() {
-    let today = moment();
+    const today = moment();
     this.dispatchData(today, today);
   }
+
   onCalendarChange = data => {
     this.dispatchData(data, data);
   };
+
   onPanelChange = date => {
     const startDate = date.clone().startOf('month');
     const endDate = date.clone().endOf('month');
     this.dispatchData(startDate, endDate);
   };
+
   dispatchData = (startTime, endTime) => {
     const {
       dispatch,

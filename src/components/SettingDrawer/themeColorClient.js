@@ -27,8 +27,8 @@ export default {
       changeUrl(cssUrl) {
         // while router is not `hash` mode, it needs absolute path
         return `/${cssUrl}`;
-      }
+      },
     };
     return client.changer.changeColor(options, Promise);
-  }
+  },
 };

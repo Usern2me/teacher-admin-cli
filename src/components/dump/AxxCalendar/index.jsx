@@ -10,6 +10,7 @@ class AxxCalendar extends Component {
   state = {
     dateValue: moment(),
   };
+
   getListData = value => {
     let listData;
     switch (value.date()) {
@@ -38,12 +39,14 @@ class AxxCalendar extends Component {
       </>
     );
   };
+
   onSelect = value => {
     this.props.onChange(value);
     this.setState({ dateValue: value });
   };
+
   onPanelChange = (date, type) => {
-    let changeDate = undefined;
+    let changeDate;
     changeDate = type ? date.clone().add(1, 'months') : date.clone().subtract(1, 'months');
     this.props.onPanelChange(changeDate);
     this.setState({ dateValue: changeDate });
@@ -57,8 +60,8 @@ class AxxCalendar extends Component {
           value={dateValue}
           fullscreen={false}
           headerRender={({ value }) => {
-            let year = value.year();
-            let month = value.month() + 1;
+            const year = value.year();
+            const month = value.month() + 1;
             return (
               <div className={styles.customHeader}>
                 <div className={styles.customHeader_content}>

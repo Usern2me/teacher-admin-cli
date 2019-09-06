@@ -9,7 +9,7 @@ for (let i = 0; i < 8; i += 1) {
     href: 'https://ant.design',
     avatar: [
       'https://gw.alipayobjects.com/zos/rmsportal/eeHMaZBwmTvLdIwMfBpg.png',
-      'https://gw.alipayobjects.com/zos/rmsportal/udxAbMEhpwthVVcjLXik.png'
+      'https://gw.alipayobjects.com/zos/rmsportal/udxAbMEhpwthVVcjLXik.png',
     ][i % 2],
     name: `TradeCode ${i}`,
     title: `一个任务名称 ${i}`,
@@ -19,7 +19,7 @@ for (let i = 0; i < 8; i += 1) {
     status: Math.floor(Math.random() * 10) % 4,
     updatedAt: new Date(`2017-07-${Math.floor(i / 2) + 1}`),
     createdAt: new Date(`2017-07-${Math.floor(i / 2) + 1}`),
-    progress: Math.ceil(Math.random() * 100)
+    progress: Math.ceil(Math.random() * 100),
   });
 }
 
@@ -77,8 +77,8 @@ function getRule(req, res, u) {
     pagination: {
       total: dataSource.length,
       pageSize,
-      current: parseInt(`${params.currentPage}`, 10) || 1
-    }
+      current: parseInt(`${params.currentPage}`, 10) || 1,
+    },
   };
   return res.json(result);
 }
@@ -93,7 +93,7 @@ function postRule(req, res, u, b) {
 
   const body = (b && b.body) || req.body;
   const {
- method, name, desc, key
+ method, name, desc, key,
 } = body;
 
   switch (method) {
@@ -109,7 +109,7 @@ function postRule(req, res, u, b) {
         href: 'https://ant.design',
         avatar: [
           'https://gw.alipayobjects.com/zos/rmsportal/eeHMaZBwmTvLdIwMfBpg.png',
-          'https://gw.alipayobjects.com/zos/rmsportal/udxAbMEhpwthVVcjLXik.png'
+          'https://gw.alipayobjects.com/zos/rmsportal/udxAbMEhpwthVVcjLXik.png',
         ][i % 2],
         name: `TradeCode ${i}`,
         title: `一个任务名称 ${i}`,
@@ -119,7 +119,7 @@ function postRule(req, res, u, b) {
         status: Math.floor(Math.random() * 10) % 2,
         updatedAt: new Date(),
         createdAt: new Date(),
-        progress: Math.ceil(Math.random() * 100)
+        progress: Math.ceil(Math.random() * 100),
       });
       break;
 
@@ -129,7 +129,7 @@ function postRule(req, res, u, b) {
           return {
             ...item,
             desc,
-            name
+            name,
           };
         }
 
@@ -144,13 +144,13 @@ function postRule(req, res, u, b) {
   const result = {
     list: tableListDataSource,
     pagination: {
-      total: tableListDataSource.length
-    }
+      total: tableListDataSource.length,
+    },
   };
   return res.json(result);
 }
 
 export default {
   'GET /api/rule': getRule,
-  'POST /api/rule': postRule
+  'POST /api/rule': postRule,
 };

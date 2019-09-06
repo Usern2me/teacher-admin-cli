@@ -7,7 +7,7 @@ export function getPageQuery() {
 const Model = {
   namespace: 'login',
   state: {
-    status: undefined
+    status: undefined,
   },
   effects: {
     * logout(_, { put }) {
@@ -18,17 +18,17 @@ const Model = {
           routerRedux.replace({
             pathname: '/user/login',
             search: stringify({
-              redirect: window.location.href
-            })
+              redirect: window.location.href,
+            }),
           }),
         );
       }
-    }
+    },
   },
   reducers: {
     changeLoginStatus(state, { payload }) {
       return { ...state, status: payload.status, type: payload.type };
-    }
-  }
+    },
+  },
 };
 export default Model;
